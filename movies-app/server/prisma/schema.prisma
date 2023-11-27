@@ -11,11 +11,10 @@ datasource db {
 }
 
 model User {
-  id        Int        @id @default(autoincrement())
-  email     String     @unique
-  name      String?
-  reviews   Review[]
-  bookmarks Bookmark[]
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  auth0Id      String   @unique @default("")
+  name         String?
 }
 
 model Movie {
@@ -25,24 +24,24 @@ model Movie {
   plot      String
   director  String
   imdbID    String
-  reviews   Review[]
-  bookmarks Bookmark[]
+  // reviews   Review[]
+  // bookmarks Bookmark[]
 }
-
-model Review {
-  id      Int    @id @default(autoincrement())
-  content String
-  rating  Int
-  movieId Int
-  userId  Int
-  movie   Movie  @relation(fields: [movieId], references: [id])
-  user    User   @relation(fields: [userId], references: [id])
-}
-
-model Bookmark {
-  id      Int   @id @default(autoincrement())
-  userId  Int
-  movieId Int
-  user    User  @relation(fields: [userId], references: [id])
-  movie   Movie @relation(fields: [movieId], references: [id])
-}
+//
+// model Review {
+//   id      Int    @id @default(autoincrement())
+//   content String
+//   rating  Int
+//   movieId Int
+//   userId  Int
+//   movie   Movie  @relation(fields: [movieId], references: [id])
+//   user    User   @relation(fields: [userId], references: [id])
+// }
+//
+// model Bookmark {
+//   id      Int   @id @default(autoincrement())
+//   userId  Int
+//   movieId Int
+//   user    User  @relation(fields: [userId], references: [id])
+//   movie   Movie @relation(fields: [movieId], references: [id])
+// }
