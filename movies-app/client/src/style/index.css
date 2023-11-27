@@ -1,28 +1,48 @@
-@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
-
-* {
-  font-family: "PT Sans", sans-serif;
+/* index.css */
+body {
+  background-color: #121212; /* Dark background */
+  color: #ffffff; /* Light text */
 }
 
-html,
-body,
-#root {
-  height: 100%;
+.navbar-dark {
+  background-color: #1c1c1c; /* Dark navbar background */
 }
 
-table,
-td {
-  border: 1px solid rgb(0, 141, 184);
-  text-align: center;
+.card {
+  background-color: #2a2a2a; /* Dark card background */
+  color: #e0e0e0; /* Light card text */
 }
 
-thead {
-  background-color: rgb(47, 67, 255);
-  color: #fff;
+.btn-outline-success {
+  border-color: #28a745;
+  color: #28a745;
 }
 
-th {
-  padding: 5px;
+.btn-outline-success:hover {
+  background-color: #28a745;
+  color: white;
 }
 
+.btn-outline-danger {
+  border-color: #dc3545;
+  color: #dc3545;
+}
 
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+.page-link {
+  color: #ffffff; /* Light text */
+  background-color: #343a40; /* Darker background */
+  border-color: #454d55; /* Border color */
+}
+
+.page-link:hover {
+  color: white;
+  background-color: #1c1c1c;
+  border-color: black;
+}
+
+/* Add more styles as needed... */
