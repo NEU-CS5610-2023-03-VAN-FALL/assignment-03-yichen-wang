@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
+import { Pagination } from 'react-bootstrap';
 
 const Movies = () => {
     const [movies, setMovies] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [loading, setLoading] = useState(false);
+    const [totalPages, setTotalPages] = useState(0);
 
     const fetchMovies = async (page) => {
         setLoading(true);
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/movies/popular?page=${page}`);
             const data = await response.json();
-            setMovies(data);
+            setMovies(data.results);
+            setTotalPages(data.total_pages);
             setLoading(false);
         } catch (error) {
             console.error('Error fetching movies:', error);
@@ -27,6 +30,31 @@ const Movies = () => {
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
         fetchMovies(newPage);
+    };
+
+    const renderPagination = () => {
+        let items = [];
+        let leftLimit = Math.max(1, currentPage - 4);
+        let rightLimit = Math.min(currentPage + 4, totalPages);
+
+        // 如果当前页码接近开始或结束，调整范围
+        if (currentPage < 3) {
+            rightLimit = 5;
+        }
+        if (currentPage > totalPages - 3) {
+            leftLimit = totalPages - 4;
+        }
+
+        // 创建页码按钮
+        for (let number = leftLimit; number <= rightLimit; number++) {
+            items.push(
+                <Pagination.Item key={number} active={number === currentPage} onClick={() => handlePageChange(number)}>
+                    {number}
+                </Pagination.Item>,
+            );
+        }
+
+        return items;
     };
 
     return (
@@ -57,20 +85,14 @@ const Movies = () => {
                     ))}
                 </div>
             )}
-            <nav aria-label="Page navigation">
-                <ul className="pagination justify-content-center mt-4">
-                    <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                        <button className="page-link" onClick={() => handlePageChange(currentPage - 1)}>
-                            Previous
-                        </button>
-                    </li>
-                    <li className="page-item">
-                        <button className="page-link" onClick={() => handlePageChange(currentPage + 1)}>
-                            Next
-                        </button>
-                    </li>
-                </ul>
-            </nav>
+
+            <Pagination className="justify-content-center">
+                <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
+                <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
+                {renderPagination()}
+                <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} />
+                <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
+            </Pagination>
         </div>
     );
 };

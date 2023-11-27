@@ -1,5 +1,3 @@
-const {PrismaClient} = require('@prisma/client');
-const prisma = new PrismaClient();
 const fetch = require('node-fetch');
 
 
@@ -16,7 +14,7 @@ exports.getPopularMovies = async (req, res) => {
             throw new Error(`Error: ${data.status_message}`);
         }
 
-        res.json(data.results); // Sending back just the results array
+        res.json(data); // Sending back just the results array
     } catch (error) {
         res.status(500).send(error.message);
     }
