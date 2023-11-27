@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Movies = () => {
     const [movies, setMovies] = useState([]);
@@ -35,7 +36,7 @@ const Movies = () => {
             ) : (
                 <div className="row">
                     {movies.map((movie, index) => (
-                        <div className="col-md-4 mb-3" key={index}>
+                        <div className="col-md-3 mb-3" key={index}> {/* 将这里的 col-md-4 改为 col-md-3 */}
                             <div className="card">
                                 <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} className="card-img-top" alt={movie.title} />
                                 <div className="card-body">
@@ -48,7 +49,7 @@ const Movies = () => {
                 </div>
             )}
             <nav aria-label="Page navigation">
-                <ul className="pagination">
+                <ul className="pagination justify-content-center">
                     <li className="page-item">
                         <button className="page-link" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
                             Previous
