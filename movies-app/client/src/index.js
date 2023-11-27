@@ -11,6 +11,7 @@ import {Auth0Provider, useAuth0} from "@auth0/auth0-react";
 import {AuthTokenProvider} from "./AuthTokenContext";
 import "./style/normalize.css";
 import "./style/index.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import MovieDetails from "./components/MovieDetails";
 
 const container = document.getElementById("root");
