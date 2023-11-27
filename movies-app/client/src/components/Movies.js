@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { Link } from 'react-router-dom';
 const Movies = () => {
     const [movies, setMovies] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -36,11 +36,15 @@ const Movies = () => {
             ) : (
                 <div className="row">
                     {movies.map((movie, index) => (
-                        <div className="col-md-3 mb-3" key={index}> {/* 将这里的 col-md-4 改为 col-md-3 */}
+                        <div className="col-md-3 mb-3" key={index}>
                             <div className="card">
-                                <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} className="card-img-top" alt={movie.title} />
+                                <Link to={`/movies/${movie.id}`}>
+                                    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} className="card-img-top" alt={movie.title} />
+                                </Link>
                                 <div className="card-body">
-                                    <h5 className="card-title">{movie.title}</h5>
+                                    <h5 className="card-title">
+                                        <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+                                    </h5>
                                     <p className="card-text">{movie.overview}</p>
                                 </div>
                             </div>

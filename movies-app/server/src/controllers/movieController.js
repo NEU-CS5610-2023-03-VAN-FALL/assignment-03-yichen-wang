@@ -21,3 +21,22 @@ exports.getPopularMovies = async (req, res) => {
         res.status(500).send(error.message);
     }
 };
+
+exports.getMovieDetails = async (req, res) => {
+    const apiKey = process.env.TMDB_API_KEY;
+    const movieId = req.params.id;
+    const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`;
+
+    try {
+        const response = await fetch(url);
+        const movieDetails = await response.json();
+
+        if (!response.ok) {
+            throw new Error(`Error: ${movieDetails.status_message}`);
+        }
+
+        res.json(movieDetails);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+};

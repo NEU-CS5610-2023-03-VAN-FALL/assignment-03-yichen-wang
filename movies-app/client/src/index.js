@@ -38,7 +38,7 @@ root.render(
             domain={process.env.REACT_APP_AUTH0_DOMAIN}
             clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
             authorizationParams={{
-                redirect_uri: `${window.location.origin}/verify-user`,
+                redirect_uri: `${window.location.origin}/user/verify-user`,
                 audience: process.env.REACT_APP_AUTH0_AUDIENCE,
                 scope: requestedScopes.join(" "),
             }}
@@ -46,7 +46,7 @@ root.render(
             <AuthTokenProvider>
                 <BrowserRouter>
                     <Routes>
-                        <Route path="/verify-user" element={<VerifyUser/>}/>
+                        <Route path="/user/verify-user" element={<VerifyUser/>}/>
                         <Route
                             path="/"
                             element={
@@ -55,7 +55,7 @@ root.render(
                         >
                             <Route index element={<Movies/>}/>
                             <Route path="profile" element={<Profile/>}/>
-                            <Route path="movies/:movieId" element={<MovieDetails/>}/>
+                            <Route path="movies/:id" element={<MovieDetails/>}/>
                             <Route path="debugger" element={<AuthDebugger/>}/>
                         </Route>
                         <Route path="*" element={<NotFound/>}/>
