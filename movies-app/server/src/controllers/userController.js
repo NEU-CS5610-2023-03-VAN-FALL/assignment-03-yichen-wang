@@ -25,10 +25,14 @@ exports.getUserProfile = async (req, res) => {
 };
 
 exports.verifyUser = async (req, res) => {
+    console.log('req.auth', req.auth);
+
     const auth0Id = req.auth.payload.sub;
     const email = req.auth.payload[`${process.env.AUTH0_AUDIENCE}/email`];
     const name = req.auth.payload[`${process.env.AUTH0_AUDIENCE}/name`];
 
+    console.log('auth0Id', auth0Id);
+    console.log('email', email);
     const user = await prisma.user.findUnique({
         where: {
             auth0Id,
