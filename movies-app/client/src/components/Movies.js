@@ -50,10 +50,10 @@ const Movies = () => {
         let rightLimit = Math.min(currentPage + 4, totalPages);
 
         if (currentPage < 3) {
-            rightLimit = 5;
+            rightLimit = Math.min(5, totalPages);
         }
         if (currentPage > totalPages - 3) {
-            leftLimit = totalPages - 4;
+            leftLimit = Math.max(totalPages - 4, 1);
         }
 
         for (let number = leftLimit; number <= rightLimit; number++) {
@@ -102,7 +102,8 @@ const Movies = () => {
                             onChange={(e) => setSearchQuery(e.target.value)}
                             style={{backgroundColor: "#343a40", border: "none"}}
                         />
-                        <button className="btn btn-primary" type="button" onClick={handleSearch} disabled={!searchQuery}>
+                        <button className="btn btn-primary" type="button" onClick={handleSearch}
+                                disabled={!searchQuery}>
                             Search
                         </button>
                     </div>

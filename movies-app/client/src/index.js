@@ -18,18 +18,6 @@ const container = document.getElementById("root");
 
 const requestedScopes = ["profile", "email"];
 
-function RequireAuth({children}) {
-    const {isAuthenticated, isLoading} = useAuth0();
-
-    // If the user is not authenticated, redirect to the home page
-    if (!isLoading && !isAuthenticated) {
-        return <Navigate to="/" replace/>;
-    }
-
-    // Otherwise, display the children (the protected page)
-    return children;
-}
-
 const root = ReactDOMClient.createRoot(container);
 
 root.render(
