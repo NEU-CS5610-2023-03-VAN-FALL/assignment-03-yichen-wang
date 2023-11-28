@@ -68,16 +68,19 @@ const Movies = () => {
     };
 
     const renderMovies = () => {
+        if (movies.length === 0) {
+            return <p className="text-center text-white">No data found!</p>;
+        }
         return movies.map((movie, index) => (
             <div className="col-md-4 col-lg-3 mb-3" key={index}>
                 <Card className="h-100">
-                    <Link to={`/movies/${movie.id}`}>
+                    <Link to={`/details/${movie.id}`}>
                         <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                                   alt={movie.title}/>
                     </Link>
                     <Card.Body>
                         <Card.Title>
-                            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+                            <Link to={`/details/${movie.id}`}>{movie.title}</Link>
                         </Card.Title>
                         <Card.Text>{movie.overview}</Card.Text>
                     </Card.Body>

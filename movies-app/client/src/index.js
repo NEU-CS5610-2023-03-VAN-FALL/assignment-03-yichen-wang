@@ -43,7 +43,7 @@ root.render(
                         >
                             <Route index element={<Movies/>}/>
                             <Route path="profile" element={<Profile/>}/>
-                            <Route path="movies/:id" element={<MovieDetails/>}/>
+                            <Route path="details/:id" element={<MovieDetails/>}/>
                             <Route path="debugger" element={<AuthDebugger/>}/>
                         </Route>
                         <Route path="*" element={<NotFound/>}/>
