@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {useAuthToken} from "../AuthTokenContext";
+import {useAuth0} from "@auth0/auth0-react";
 
 const MovieDetails = () => {
     const {id} = useParams();
@@ -13,6 +14,7 @@ const MovieDetails = () => {
         content: ""
     });
     const {accessToken} = useAuthToken();
+    const {isAuthenticated, loginWithRedirect} = useAuth0();
     const fetchMovieDetails = async () => {
         setLoading(true);
         try {
@@ -51,27 +53,31 @@ const MovieDetails = () => {
 
     const submitReview = async (e) => {
         e.preventDefault();
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/reviews/${id}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${accessToken}`,
-                },
-                body: JSON.stringify(newReview)
-            });
-
-            if (response.ok) {
-                fetchReviews();
-                setNewReview({
-                    rating: "5",
-                    content: ""
+        if (!isAuthenticated) {
+            await loginWithRedirect();
+        } else {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/reviews/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                    body: JSON.stringify(newReview)
                 });
-            } else {
-                console.error('Error submitting review:', await response.text());
+
+                if (response.ok) {
+                    await fetchReviews();
+                    setNewReview({
+                        rating: "5",
+                        content: ""
+                    });
+                } else {
+                    console.error('Error submitting review:', await response.text());
+                }
+            } catch (error) {
+                console.error('Error creating review:', error);
             }
-        } catch (error) {
-            console.error('Error creating review:', error);
         }
     };
 
