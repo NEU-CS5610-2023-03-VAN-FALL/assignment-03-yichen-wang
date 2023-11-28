@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import {Pagination, Card} from 'react-bootstrap';
+import {useNavigate} from 'react-router-dom';
 
 const Movies = () => {
     const [movies, setMovies] = useState([]);
@@ -9,6 +10,9 @@ const Movies = () => {
     const [loading, setLoading] = useState(false);
     const [totalPages, setTotalPages] = useState(0);
     const [searchQuery, setSearchQuery] = useState('');
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const criteria = searchParams.get('criteria');
 
     const fetchMovies = async (page) => {
         setLoading(true);
@@ -28,11 +32,12 @@ const Movies = () => {
         }
     };
 
-
+    const navigate = useNavigate();
     // Function to handle search
     const handleSearch = async () => {
         setCurrentPage(1); // Reset to the first page for new searches
         fetchMovies(1, searchQuery); // Fetch movies based on the search query
+        navigate(`/search?criteria=${encodeURIComponent(searchQuery)}`); // Update the URL
     };
 
     useEffect(() => {

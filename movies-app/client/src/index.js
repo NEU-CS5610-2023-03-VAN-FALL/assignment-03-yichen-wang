@@ -45,6 +45,7 @@ root.render(
                             <Route path="profile" element={<Profile/>}/>
                             <Route path="details/:id" element={<MovieDetails/>}/>
                             <Route path="debugger" element={<AuthDebugger/>}/>
+                            <Route path="search" element={<Movies/>}/>
                         </Route>
                         <Route path="*" element={<NotFound/>}/>
                     </Routes>
