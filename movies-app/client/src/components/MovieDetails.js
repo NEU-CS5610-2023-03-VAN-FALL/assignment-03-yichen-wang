@@ -125,7 +125,7 @@ const MovieDetails = () => {
                     <div className="mb-3">
                         <label htmlFor="rating" className="form-label">Rating</label>
                         <select className="form-select" name="rating" value={newReview.rating}
-                                onChange={handleReviewChange}>
+                                onChange={handleReviewChange} required>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -136,7 +136,7 @@ const MovieDetails = () => {
                     <div className="mb-3">
                         <label htmlFor="content" className="form-label">Review</label>
                         <textarea className="form-control" name="content" value={newReview.content}
-                                  onChange={handleReviewChange} rows="3"></textarea>
+                                  onChange={handleReviewChange} rows="3" required></textarea>
                     </div>
                     <button type="submit" className="btn btn-primary">Submit Review</button>
                 </form>
