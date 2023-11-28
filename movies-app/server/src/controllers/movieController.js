@@ -38,3 +38,23 @@ exports.getMovieDetails = async (req, res) => {
         res.status(500).send(error.message);
     }
 };
+
+exports.searchMovies = async (req, res) => {
+    const apiKey = process.env.TMDB_API_KEY;
+    const page = req.query.page || 1; // Default to page 1 if no page specified
+    const query = req.query.query;
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}&page=${page}`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(`Error: ${data.status_message}`);
+        }
+
+        res.json(data); // Sending back just the results array
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+}

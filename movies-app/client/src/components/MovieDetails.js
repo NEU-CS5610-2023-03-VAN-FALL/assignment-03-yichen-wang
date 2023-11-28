@@ -28,7 +28,7 @@ const MovieDetails = () => {
     if (!movie) return <p>Movie not found.</p>;
 
     return (
-        <div className="container mt-4">
+        <div className="container mt-4" data-bs-theme="dark">
             <div className="row">
                 <div className="col-md-6">
                     <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} className="img-fluid rounded" alt={movie.title} />
