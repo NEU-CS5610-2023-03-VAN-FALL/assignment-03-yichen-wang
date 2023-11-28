@@ -40,13 +40,10 @@ exports.getMovieDetails = async (req, res) => {
             where: { externalId: movieId },
             update: {
                 title: movieDetails.title,
-                overview: movieDetails.overview,
-
             },
             create: {
                 externalId: movieId,
                 title: movieDetails.title,
-                overview: movieDetails.overview,
             },
         });
 
