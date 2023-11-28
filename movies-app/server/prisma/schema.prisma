@@ -15,28 +15,29 @@ model User {
   email        String   @unique
   auth0Id      String   @unique @default("")
   name         String?
+  reviews   Review[]
 }
 
 model Movie {
   id        Int        @id @default(autoincrement())
-  title     String
-  year      Int
-  plot      String
-  director  String
-  imdbID    String
-  // reviews   Review[]
+  externalId  Int  @unique
+  title     String?
+  overview      String?
+  reviews   Review[]
   // bookmarks Bookmark[]
 }
-//
-// model Review {
-//   id      Int    @id @default(autoincrement())
-//   content String
-//   rating  Int
-//   movieId Int
-//   userId  Int
-//   movie   Movie  @relation(fields: [movieId], references: [id])
-//   user    User   @relation(fields: [userId], references: [id])
-// }
+
+model Review {
+  id      Int    @id @default(autoincrement())
+  content String
+  rating  Int
+  movieId Int
+  userId  Int
+  movie   Movie  @relation(fields: [movieId], references: [externalId])
+  user    User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
 //
 // model Bookmark {
 //   id      Int   @id @default(autoincrement())

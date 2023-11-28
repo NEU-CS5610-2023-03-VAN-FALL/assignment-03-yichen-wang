@@ -1,4 +1,6 @@
 const fetch = require('node-fetch');
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 
 
 exports.getPopularMovies = async (req, res) => {
@@ -22,7 +24,7 @@ exports.getPopularMovies = async (req, res) => {
 
 exports.getMovieDetails = async (req, res) => {
     const apiKey = process.env.TMDB_API_KEY;
-    const movieId = req.params.id;
+    const movieId = parseInt(req.params.id);
     const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`;
 
     try {
@@ -33,8 +35,24 @@ exports.getMovieDetails = async (req, res) => {
             throw new Error(`Error: ${movieDetails.status_message}`);
         }
 
+        // Save movie to database
+        const savedMovie = await prisma.movie.upsert({
+            where: { externalId: movieId },
+            update: {
+                title: movieDetails.title,
+                overview: movieDetails.overview,
+
+            },
+            create: {
+                externalId: movieId,
+                title: movieDetails.title,
+                overview: movieDetails.overview,
+            },
+        });
+
         res.json(movieDetails);
     } catch (error) {
+        console.log(error)
         res.status(500).send(error.message);
     }
 };
