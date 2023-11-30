@@ -1,6 +1,5 @@
 import {useAuth0, withAuthenticationRequired} from "@auth0/auth0-react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Navigate} from "react-router-dom";
 
 function Profile() {
     const {user} = useAuth0();

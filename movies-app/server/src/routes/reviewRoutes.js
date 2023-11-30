@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { auth } = require('express-oauth2-jwt-bearer');
+const {auth} = require('express-oauth2-jwt-bearer');
 const reviewController = require('../controllers/reviewController');
 // this is a middleware that will validate the access token sent by the client
 const requireAuth = auth({

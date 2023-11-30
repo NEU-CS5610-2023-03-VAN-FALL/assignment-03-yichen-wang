@@ -23,6 +23,7 @@ export default function AppLayout() {
                         <Nav.Link as={Link} to="/">Movies</Nav.Link>
                         <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
                         <Nav.Link as={Link} to="/debugger">Auth Debugger</Nav.Link>
+                        <Nav.Link as={Link} to="/bookmarks">Bookmarks</Nav.Link>
                     </Nav>
                     <div className="d-flex">
                         {isAuthenticated ? (

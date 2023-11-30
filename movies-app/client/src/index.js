@@ -9,6 +9,7 @@ import VerifyUser from "./components/VerifyUser";
 import AuthDebugger from "./components/AuthDebugger";
 import {Auth0Provider, useAuth0} from "@auth0/auth0-react";
 import {AuthTokenProvider} from "./AuthTokenContext";
+import Bookmarks from "./components/Bookmarks";
 import "./style/normalize.css";
 import "./style/index.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -42,6 +43,7 @@ root.render(
                             }
                         >
                             <Route index element={<Movies/>}/>
+                            <Route path="bookmarks" element={<Bookmarks/>}/>
                             <Route path="profile" element={<Profile/>}/>
                             <Route path="details/:id" element={<MovieDetails/>}/>
                             <Route path="debugger" element={<AuthDebugger/>}/>

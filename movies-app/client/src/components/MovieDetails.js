@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {useAuthToken} from "../AuthTokenContext";
 import {useAuth0} from "@auth0/auth0-react";
+import {FaStar} from 'react-icons/fa';
 
 const MovieDetails = () => {
     const {id} = useParams();
@@ -15,6 +16,7 @@ const MovieDetails = () => {
     });
     const {accessToken} = useAuthToken();
     const {isAuthenticated, loginWithRedirect} = useAuth0();
+    const [bookmarked, setBookmarked] = useState(false);
     const fetchMovieDetails = async () => {
         setLoading(true);
         try {
@@ -37,9 +39,34 @@ const MovieDetails = () => {
         }
     };
 
+    const fetchBookmarkStatus = async () => {
+        if (!isAuthenticated) {
+            return;
+        }
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/bookmarks/status/${id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+
+            if (response.ok) {
+                setBookmarked(true);
+            } else if (response.status === 404) {
+                setBookmarked(false);
+            } else {
+                console.error('Error fetching bookmark status:', await response.text());
+            }
+        } catch (error) {
+            console.error('Error fetching bookmark status:', error);
+        }
+    };
+
     useEffect(() => {
         fetchMovieDetails();
         fetchReviews();
+        fetchBookmarkStatus();
     }, [id]);
 
 
@@ -81,8 +108,59 @@ const MovieDetails = () => {
         }
     };
 
+
+    const toggleBookmark = async () => {
+        if (!isAuthenticated) {
+            await loginWithRedirect();
+        } else {
+            try {
+                if (bookmarked) {
+                    const response = await fetch(`${process.env.REACT_APP_API_URL}/bookmarks/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${accessToken}`,
+                        },
+                    });
+
+                    if (response.ok) {
+                        setBookmarked(false);
+                    } else {
+                        console.error('Error deleting bookmark:', await response.text());
+                    }
+                } else {
+                    const response = await fetch(`${process.env.REACT_APP_API_URL}/bookmarks/${id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${accessToken}`,
+                        },
+                    });
+
+                    if (response.ok) {
+                        setBookmarked(true);
+                    } else {
+                        console.error('Error creating bookmark:', await response.text());
+                    }
+                }
+            } catch (error) {
+                console.error('Error toggling bookmark:', error);
+            }
+        }
+    };
+
+
     return (
         <div className="container mt-4" data-bs-theme="dark">
+            <div className="mt-4">
+                {isAuthenticated && (
+                    <FaStar
+                        className={bookmarked ? 'text-warning' : 'text-secondary'}
+                        onClick={toggleBookmark}
+                        style={{cursor: 'pointer'}}
+                    />
+                )}
+            </div>
             <div className="row">
                 <div className="col-md-6">
                     <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} className="img-fluid rounded"
