@@ -88,7 +88,7 @@ exports.getBookmarkStatus = async (req, res) => {
         if (bookmark) {
             res.sendStatus(200);
         } else {
-            res.sendStatus(404);
+            res.sendStatus(401);
         }
     } catch (error) {
         console.log(error);
@@ -117,7 +117,7 @@ exports.deleteBookmark = async (req, res) => {
         if (deleteCount.count > 0) {
             res.sendStatus(200);
         } else {
-            res.sendStatus(404);
+            res.sendStatus(401);
         }
     } catch (error) {
         console.log(error);

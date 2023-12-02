@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useAuthToken} from "../AuthTokenContext";
-import {useAuth0} from "@auth0/auth0-react";
+import {useAuth0, withAuthenticationRequired} from "@auth0/auth0-react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Card} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
@@ -52,7 +52,9 @@ const Bookmarks = () => {
                                 <Card.Title>
                                     <Link to={`/details/${bookmark.id}`}>{bookmark.title}</Link>
                                 </Card.Title>
-                                <Card.Text>{bookmark.overview}</Card.Text>
+                                <Card.Text>
+                                    {bookmark.overview.length > 150 ? bookmark.overview.substring(0, 150) + "..." : bookmark.overview}
+                                </Card.Text>
                             </Card.Body>
                         </Card>
                     </div>
@@ -62,4 +64,4 @@ const Bookmarks = () => {
     );
 };
 
-export default Bookmarks;
+export default withAuthenticationRequired(Bookmarks);

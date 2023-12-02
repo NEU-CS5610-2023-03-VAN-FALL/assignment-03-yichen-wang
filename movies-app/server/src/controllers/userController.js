@@ -2,12 +2,13 @@ const {PrismaClient} = require('@prisma/client');
 const prisma = new PrismaClient();
 
 exports.getUserProfile = async (req, res) => {
-    if (!req.oidc.isAuthenticated()) {
-        return res.status(401).send('User not authenticated');
-    }
+    // if (!req.oidc.isAuthenticated()) {
+    //     return res.status(401).send('User not authenticated');
+    // }
 
     try {
-        const userEmail = req.oidc.user.email;
+        const userEmail = req.auth.payload[`${process.env.AUTH0_AUDIENCE}/email`];
+        console.log('userEmail', userEmail);
         const user = await prisma.user.findUnique({
             where: {
                 email: userEmail
@@ -20,12 +21,12 @@ exports.getUserProfile = async (req, res) => {
 
         res.json(user);
     } catch (error) {
+        console.log(error);
         res.status(500).send(error.message);
     }
 };
 
 exports.verifyUser = async (req, res) => {
-    console.log('req.auth', req.auth);
 
     const auth0Id = req.auth.payload.sub;
     const email = req.auth.payload[`${process.env.AUTH0_AUDIENCE}/email`];
@@ -51,5 +52,26 @@ exports.verifyUser = async (req, res) => {
         });
 
         res.json(newUser);
+    }
+};
+
+exports.updateUser = async (req, res) => {
+    const auth0Id = req.auth.payload.sub;
+    const {name} = req.body;
+
+    try {
+        const updatedUser = await prisma.user.update({
+            where: {
+                auth0Id,
+            },
+            data: {
+                name,
+            },
+        });
+
+        res.json(updatedUser);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send(error.message);
     }
 };

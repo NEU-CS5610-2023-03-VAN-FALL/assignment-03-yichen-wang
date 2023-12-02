@@ -53,7 +53,7 @@ const MovieDetails = () => {
 
             if (response.ok) {
                 setBookmarked(true);
-            } else if (response.status === 404) {
+            } else if (response.status === 401) {
                 setBookmarked(false);
             } else {
                 console.error('Error fetching bookmark status:', await response.text());

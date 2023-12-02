@@ -87,7 +87,9 @@ const Movies = () => {
                         <Card.Title>
                             <Link to={`/details/${movie.id}`}>{movie.title}</Link>
                         </Card.Title>
-                        <Card.Text>{movie.overview}</Card.Text>
+                        <Card.Text>
+                            {movie.overview.length > 150 ? movie.overview.substring(0, 150) + "..." : movie.overview}
+                        </Card.Text>
                     </Card.Body>
                 </Card>
             </div>

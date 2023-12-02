@@ -21,9 +21,9 @@ export default function AppLayout() {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/">Movies</Nav.Link>
+                        <Nav.Link as={Link} to="/bookmarks">Bookmarks</Nav.Link>
                         <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
                         <Nav.Link as={Link} to="/debugger">Auth Debugger</Nav.Link>
-                        <Nav.Link as={Link} to="/bookmarks">Bookmarks</Nav.Link>
                     </Nav>
                     <div className="d-flex">
                         {isAuthenticated ? (
