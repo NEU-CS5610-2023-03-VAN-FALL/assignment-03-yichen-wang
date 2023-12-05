@@ -1,0 +1,48 @@
+/* index.css */
+body {
+  background-color: #121212; /* Dark background */
+  color: #ffffff; /* Light text */
+}
+
+.navbar-dark {
+  background-color: #1c1c1c; /* Dark navbar background */
+}
+
+.card {
+  background-color: #2a2a2a; /* Dark card background */
+  color: #e0e0e0; /* Light card text */
+}
+
+.btn-outline-success {
+  border-color: #28a745;
+  color: #28a745;
+}
+
+.btn-outline-success:hover {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-outline-danger {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+.page-link {
+  color: #ffffff; /* Light text */
+  background-color: #343a40; /* Darker background */
+  border-color: #454d55; /* Border color */
+}
+
+.page-link:hover {
+  color: white;
+  background-color: #1c1c1c;
+  border-color: black;
+}
+
+/* Add more styles as needed... */
