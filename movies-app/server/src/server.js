@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = process.env.PORT || 8000;
+const port = parseInt(process.env.PORT) || 8000;
 
 const movieRoutes = require('./routes/movieRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -14,7 +14,7 @@ const bookmarkRoutes = require('./routes/bookmarkRoutes');
 app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 app.use('/movies', movieRoutes);
