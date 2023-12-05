@@ -201,7 +201,7 @@ const MovieDetails = () => {
                 <form onSubmit={(e) => submitReview(e)}>
                     <div className="mb-3">
                         <label htmlFor="rating" className="form-label">Rating</label>
-                        <select className="form-select" name="rating" value={newReview.rating}
+                        <select className="form-select" id="rating" name="rating" value={newReview.rating}
                                 onChange={handleReviewChange} required>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -211,8 +211,8 @@ const MovieDetails = () => {
                         </select>
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="content" className="form-label">Review</label>
-                        <textarea className="form-control" name="content" value={newReview.content}
+                        <label htmlFor="reviewContent" className="form-label">Review</label>
+                        <textarea className="form-control" id="reviewContent" name="content" value={newReview.content}
                                   onChange={handleReviewChange} rows="3" required></textarea>
                     </div>
                     <button type="submit" className="btn btn-primary">Submit Review</button>

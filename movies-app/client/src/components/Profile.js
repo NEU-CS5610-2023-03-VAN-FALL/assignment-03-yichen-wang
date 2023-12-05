@@ -4,7 +4,7 @@ import {Card, Form, Button, Modal} from 'react-bootstrap';
 import {useAuthToken} from "../AuthTokenContext";
 
 function Profile() {
-    const {user, getAccessTokenSilently} = useAuth0();
+    const {user} = useAuth0();
     const [name, setName] = useState(user.name);
     const [newName, setNewName] = useState('');
     const [showModal, setShowModal] = useState(false);
@@ -48,7 +48,7 @@ function Profile() {
     return (
         <div className="container mt-4" data-bs-theme="dark">
             <Card style={{width: '18rem'}}>
-                <Card.Img variant="top" src={user.picture}/>
+                <Card.Img variant="top" src={user.picture} alt="User profile"/>
                 <Card.Body>
                     <Card.Title>{name}</Card.Title>
                     <Card.Text>
@@ -74,7 +74,8 @@ function Profile() {
                     <Form onSubmit={handleNameChange}>
                         <Form.Group className="mb-3">
                             <Form.Label>New Name</Form.Label>
-                            <Form.Control type="text" value={newName} onChange={(e) => setNewName(e.target.value)} required />
+                            <Form.Control type="text" value={newName} onChange={(e) => setNewName(e.target.value)}
+                                          required/>
                         </Form.Group>
                         <Button variant="primary" type="submit">
                             Submit

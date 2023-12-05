@@ -3,15 +3,7 @@ import {useAuth0} from "@auth0/auth0-react";
 import {Navbar, Nav, Button} from 'react-bootstrap';
 
 export default function AppLayout() {
-    const {isAuthenticated, loginWithRedirect, logout, isLoading} = useAuth0();
-
-    const handleProtectedNavigation = (path) => {
-        if (!isLoading && !isAuthenticated) {
-            loginWithRedirect({appState: {returnTo: path}});
-        } else {
-            window.location.pathname = path;
-        }
-    };
+    const {isAuthenticated, loginWithRedirect, logout} = useAuth0();
 
     return (
         <div className="app container">
@@ -27,11 +19,11 @@ export default function AppLayout() {
                     </Nav>
                     <div className="d-flex">
                         {isAuthenticated ? (
-                            <Button variant="outline-danger" onClick={() => logout({returnTo: window.location.origin})}>
+                            <Button variant="danger" onClick={() => logout({returnTo: window.location.origin})}>
                                 Log Out
                             </Button>
                         ) : (
-                            <Button variant="outline-success" onClick={() => loginWithRedirect()}>
+                            <Button variant="success" onClick={() => loginWithRedirect()}>
                                 Log In
                             </Button>
                         )}
