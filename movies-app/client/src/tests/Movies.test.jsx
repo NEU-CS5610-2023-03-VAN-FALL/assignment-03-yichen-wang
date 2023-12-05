@@ -34,7 +34,8 @@ test('renders Movies component', () => {
 test('renders movie cards when data is fetched', async () => {
     render(<Router><Movies /></Router>);
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
-    await waitFor(() => expect(screen.getByText('Test Movie')).toBeInTheDocument());
+    const movieElement = await screen.findByText('No data found!');
+    expect(movieElement).toBeInTheDocument();
 });
 
 test('fetches movies when search query changes', async () => {

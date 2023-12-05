@@ -154,11 +154,10 @@ const MovieDetails = () => {
         <div className="container mt-4" data-bs-theme="dark">
             <div className="mt-4">
                 {isAuthenticated && (
-                    <FaStar
-                        className={bookmarked ? 'text-warning' : 'text-secondary'}
-                        onClick={toggleBookmark}
-                        style={{cursor: 'pointer'}}
-                    />
+                    <div onClick={toggleBookmark} style={{cursor: 'pointer', fontSize: '24px'}}>
+                        <FaStar className={bookmarked ? 'text-warning' : 'text-secondary'} />
+                        <span> Favorite</span>
+                    </div>
                 )}
             </div>
             <div className="row">
